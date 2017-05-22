@@ -37,29 +37,5 @@ AnimalSchema.pre('save_', function(next) {
   next();
 });
 
-function mockAnimal() {
 
-    var lista = [
-        
-        new animal({
-            raca: 'Pastor Alemao',
-            porte: 'Grande',
-            descricao: 'Pastor',
-            tipo: 'CAO',
-        }),
-        new animal({
-            raca: 'Maltes',
-            porte: 'Medio',
-            descricao: 'Maltes',
-            tipo: 'CAO',
-        }),
-        new animal({
-            nome: 'Border Collie',
-            descricao: 'Collie',
-            porte: 'Medio',
-            tipo: 'CAO',
-        })
-    ];
-    return lista;
-}
 module.exports = animal;
