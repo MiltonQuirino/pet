@@ -12,14 +12,6 @@ var AnimalSchema = new Schema({
 
 var animal = mongoose.model('Animal', AnimalSchema);
 
-AnimalSchema.pre('save', function(next) {
-    console.log('xxx');
-    if (this.isNew) {
-        // Hooray !
-    }
-    next();
-});
-
 // on every save, add the date
 AnimalSchema.pre('save_', function(next) {
 

@@ -1,5 +1,9 @@
 var animal = require('../models/animal');
+var proposta = require('../models/proposta');
 var bodyParser = require('body-parser');
+
+var url = require('url');
+
 
 module.exports = function (app) {
 
@@ -22,7 +26,43 @@ module.exports = function (app) {
 
         console.log(req.body);
 
-        res.send('Cadastro !');
+        var prop = new proposta({
+            celular: req.body.celular,
+            cpf: req.body.cpf,
+            dataNascimento: req.body.dataNascimento,
+            email: req.body.email,
+            nomePet: req.body.nomePet,
+            nomeUsuario: req.body.nomeUsuario,
+            raca: req.body.raca,
+            sobrenome: req.body.sobrenome
+        });
+
+        prop.save(function (err) {
+
+            if (err) throw err;
+            console.log('Object saved successfully : ' + prop);
+
+        });
+
+        res.send({ uuid: prop._id });
+    });
+
+    app.get('/animais/obter', function (req, res) {
+
+        var url_parts = url.parse(req.url, true);
+        var query = url_parts.query;
+
+        proposta.find({ _id: query.uuid }, function (err, prop) {
+            
+            if (err){
+                return console.error(err);
+            } 
+            
+            res.send(prop);
+            console.log(prop);
+        });
+
+       
     });
 
     app.get('/animais/updateBanco', function (req, res) {
